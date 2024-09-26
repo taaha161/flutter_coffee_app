@@ -6,3 +6,9 @@ sealed class ImageCarouselEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class ImageLoadEvent extends ImageCarouselEvent {}
+
+class ImageLikeEvent extends ImageCarouselEvent {}
+
+class ImageDislikeEvent extends ImageCarouselEvent {}
