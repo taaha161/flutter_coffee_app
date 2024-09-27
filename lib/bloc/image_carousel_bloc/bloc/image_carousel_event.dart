@@ -7,10 +7,16 @@ sealed class ImageCarouselEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ImagesLoadEvent extends ImageCarouselEvent {}
+class NetworkImagesLoadEvent extends ImageCarouselEvent {}
 
-class NextImagesEvent extends ImageCarouselEvent {}
+class LocalImagesLoadEvent extends ImageCarouselEvent {}
 
-class ImageLikeEvent extends ImageCarouselEvent {}
+class NextNetworkImagesEvent extends ImageCarouselEvent {}
 
-class ImageDislikeEvent extends ImageCarouselEvent {}
+class ImageLikeEvent extends ImageCarouselEvent {
+  final String imageUrl;
+  const ImageLikeEvent({required this.imageUrl});
+
+  @override
+  List<Object> get props => [imageUrl];
+}

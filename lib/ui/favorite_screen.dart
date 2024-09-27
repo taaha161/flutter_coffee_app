@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:coffee_app_vgv/bloc/image_carousel_bloc/bloc/image_carousel_bloc.dart';
 import 'package:coffee_app_vgv/utils/colors.dart';
@@ -20,7 +21,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<ImageCarouselBloc>().add(ImagesLoadEvent());
+    context.read<ImageCarouselBloc>().add(LocalImagesLoadEvent());
   }
 
   @override
@@ -31,21 +32,19 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         builder: (context, state) {
           return Center(
             child: SizedBox(
-              height: MediaQuery.of(context).size.height,
+              height: MediaQuery.of(context).size.height * 0.5,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: AppinioSwiper(
-                  initialIndex: 0,
-                  backgroundCardCount: 0,
+                  allowUnlimitedUnSwipe: true,
+                  loop: true,
+                  backgroundCardCount: 1,
                   maxAngle: 5,
-                  cardCount: state.imageCount,
-                  onSwipeBegin: (previousIndex, targetIndex, activity) {
-                    if (targetIndex % 9 == 0) {
-                      context
-                          .read<ImageCarouselBloc>()
-                          .add(NextImagesEvent()); // load more coffee
-                    }
-                  },
+                  cardCount: state.favoriteImagesPaths.isEmpty
+                      ? 1
+                      : state.favoriteImagesPaths
+                          .length, // checking if no saved image,
+                  onSwipeBegin: (previousIndex, targetIndex, activity) {},
                   cardBuilder: (BuildContext context, int index) {
                     return _cardWidget(state, index, context);
                   },
@@ -59,7 +58,16 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   }
 }
 
-_cardWidget(state, index, context) {
+_cardWidget(ImageCarouselState state, int index, BuildContext context) {
+  if (state.favoriteImagesPaths.isEmpty) {
+    return Center(
+      child: Text("No saved image found",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+          )),
+    );
+  }
   switch (state.imageState) {
     case ImageState.loading:
       return Center(
@@ -90,40 +98,32 @@ _cardWidget(state, index, context) {
           mainAxisSize: MainAxisSize.max,
           children: [
             Expanded(
-              child: Image.network(
+              child: Image.file(
                 height: MediaQuery.of(context).size.height * 0.6,
                 width: MediaQuery.of(context).size.width * 1,
-                state.images[index].imageUrl!,
+                File(state.favoriteImagesPaths[index]),
                 fit: BoxFit
                     .cover, // Adjusts the image to according to the available height
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return Shimmer.fromColors(
-                    baseColor: const Color.fromARGB(255, 149, 149, 149),
-                    highlightColor: const Color.fromARGB(255, 0, 0, 0),
-                    child: Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: MediaQuery.of(context).size.width,
-                      color: whiteColor,
-                    ),
-                  );
-                },
-                errorBuilder: (context, error, stackTrace) => const Center(
-                  child: Text(
-                    'Image failed to load',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
               ),
             ),
+            Container(
+              height: 100,
+              width: MediaQuery.of(context).size.width,
+              color: whiteColor,
+              child: Center(
+                child: Text(
+                  "Favorite Polaroid",
+                  style: TextStyle(color: coffeeColor),
+                ),
+              ),
+            )
           ],
         ),
       );
 
     case ImageState.error:
       return Center(
-        child: Text(
-            "An error occurred, please check your internet connection and try again",
+        child: Text("No saved image found",
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.white,

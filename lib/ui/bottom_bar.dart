@@ -1,4 +1,5 @@
 import 'package:coffee_app_vgv/bloc/image_carousel_bloc/bloc/image_carousel_bloc.dart';
+import 'package:coffee_app_vgv/ui/favorite_screen.dart';
 import 'package:coffee_app_vgv/ui/home_screen.dart';
 import 'package:coffee_app_vgv/utils/colors.dart';
 import 'package:coffee_app_vgv/utils/image_state_enums.dart';
@@ -34,7 +35,9 @@ class _BottomBarState extends State<BottomBar> {
             notchBottomBarController: _controller,
             onTap: (int index) {
               _controller.jumpTo(index);
-              // _pageController.jumpTo(index);
+              _pageController.animateToPage(index,
+                  duration: Duration(milliseconds: 100),
+                  curve: Curves.bounceIn);
             },
             itemLabelStyle: TextStyle(color: whiteColor),
             kIconSize: 24,
@@ -60,14 +63,14 @@ class _BottomBarState extends State<BottomBar> {
                   Icons.favorite_sharp,
                   color: coffeeColor,
                 ),
-                itemLabel: 'Favorite',
+                itemLabel: 'Favorites',
               ),
             ]),
         backgroundColor: coffeeColor,
         body: PageView(
           controller: _pageController,
           physics: const NeverScrollableScrollPhysics(),
-          children: [HomeScreen(), HomeScreen()],
+          children: const [HomeScreen(), FavoriteScreen()],
         ));
   }
 }

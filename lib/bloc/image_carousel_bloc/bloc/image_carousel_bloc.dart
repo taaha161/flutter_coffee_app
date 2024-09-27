@@ -14,14 +14,21 @@ part 'image_carousel_state.dart';
 class ImageCarouselBloc extends Bloc<ImageCarouselEvent, ImageCarouselState> {
   final imageRepo = ImageRepository();
   ImageCarouselBloc() : super(const ImageCarouselState()) {
-    on<ImagesLoadEvent>((event, emit) async {
-      await _fetchImage(event, emit);
+    on<NetworkImagesLoadEvent>((event, emit) async {
+      await _fetchNetworkImage(event, emit);
     });
-    on<NextImagesEvent>((event, emit) async {
-      await _fetchNextImage(event, emit);
+    on<NextNetworkImagesEvent>((event, emit) async {
+      await _fetchNextNetworkImage(event, emit);
+    });
+    on<LocalImagesLoadEvent>((event, emit) async {
+      await _fetchLocalImages(event, emit);
+    });
+    on<ImageLikeEvent>((event, emit) async {
+      await _likeImage(event, emit);
     });
   }
-  Future<void> _fetchImage(ImageCarouselEvent event, Emitter emit) async {
+  Future<void> _fetchNetworkImage(
+      ImageCarouselEvent event, Emitter emit) async {
     try {
       emit(state.copyWith(imageState: ImageState.loading));
       final value = await imageRepo.loadNetworkImage();
@@ -41,8 +48,30 @@ class ImageCarouselBloc extends Bloc<ImageCarouselEvent, ImageCarouselState> {
     }
   }
 
-  Future<void> _fetchNextImage(ImageCarouselEvent event, Emitter emit) async {
+  Future<void> _fetchNextNetworkImage(
+      ImageCarouselEvent event, Emitter emit) async {
     emit(state.copyWith(imageState: ImageState.loading));
-    await _fetchImage(event, emit);
+    await _fetchNetworkImage(event, emit);
+  }
+
+  Future<void> _fetchLocalImages(ImageCarouselEvent event, Emitter emit) async {
+    emit(state.copyWith(imageState: ImageState.loading));
+    final paths = await imageRepo.getFavoriteImagePaths();
+    if (paths != null) {
+      emit(state.copyWith(
+          favoriteImagesPaths: paths, imageState: ImageState.success));
+    } else {
+      //No paths found hence error to be handled in UI
+      emit(state.copyWith(imageState: ImageState.error));
+    }
+  }
+
+  Future<void> _likeImage(ImageLikeEvent event, Emitter emit) async {
+    final path = await imageRepo.saveImageToLocal(event.imageUrl);
+    if (path != null) {
+      List<String> newPaths = List.from(state.favoriteImagesPaths);
+      newPaths.add(path);
+      emit(state.copyWith(favoriteImagesPaths: newPaths));
+    }
   }
 }
