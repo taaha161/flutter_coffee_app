@@ -1,13 +1,11 @@
-import 'dart:developer';
-
 import 'package:coffee_app_vgv/bloc/image_carousel_bloc/bloc/image_carousel_bloc.dart';
 import 'package:coffee_app_vgv/utils/colors.dart';
 import 'package:coffee_app_vgv/utils/image_state_enums.dart';
 import 'package:flutter/material.dart';
 import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:shimmer/shimmer.dart';
-import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

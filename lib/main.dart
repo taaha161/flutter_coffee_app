@@ -1,6 +1,7 @@
 import 'package:coffee_app_vgv/bloc/image_carousel_bloc/bloc/image_carousel_bloc.dart';
 import 'package:coffee_app_vgv/ui/bottom_bar.dart';
 import 'package:coffee_app_vgv/ui/home_screen.dart';
+import 'package:coffee_app_vgv/ui/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: BottomBar(),
+        home: const OnboardingScreen(),
       ),
     );
   }
