@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 
 import 'package:coffee_app_vgv/repository/image_repo.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -13,7 +13,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 
 import 'unit_test.mocks.dart';
 
@@ -27,19 +26,6 @@ void main() {
 
   const favoriteImagesListK = 'favoriteImagesList';
   TestWidgetsFlutterBinding.ensureInitialized();
-  TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-      .setMockMethodCallHandler(
-          const MethodChannel('plugins.flutter.io/path_provider'),
-          (MethodCall methodCall) async {
-    return kTemporaryPath;
-  });
-
-  TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-      .setMockMethodCallHandler(
-          const MethodChannel('plugins.flutter.io/shared_preferences'),
-          (MethodCall methodCall) async {
-    return kTemporaryPath;
-  });
 
 // Setting up my very good tests
   setUp(() {
@@ -84,7 +70,7 @@ void main() {
 
     test('should log error and return null if download fails', () async {
       final testDirectory = await getTemporaryDirectory();
-      final imageUrl = 'https://example.com/image.png';
+      const imageUrl = 'https://example.com/image.png';
       final fileName = imageUrl.split('/').last;
       final filePath = '${testDirectory.path}/$fileName';
 
