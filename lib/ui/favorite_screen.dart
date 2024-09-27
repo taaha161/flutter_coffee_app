@@ -9,14 +9,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class FavoriteScreen extends StatefulWidget {
+  const FavoriteScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<FavoriteScreen> createState() => _FavoriteScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   void initState() {
     super.initState();
@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (context, state) {
           return Center(
             child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.5,
+              height: MediaQuery.of(context).size.height,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: AppinioSwiper(
@@ -116,17 +116,6 @@ _cardWidget(state, index, context) {
                 ),
               ),
             ),
-            Container(
-              height: 100,
-              width: MediaQuery.of(context).size.width,
-              color: whiteColor,
-              child: Center(
-                child: Text(
-                  "Very Good Coffee Polaroid",
-                  style: TextStyle(color: coffeeColor),
-                ),
-              ),
-            )
           ],
         ),
       );

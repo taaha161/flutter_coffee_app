@@ -7,7 +7,9 @@ sealed class ImageCarouselEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ImageLoadEvent extends ImageCarouselEvent {}
+class ImagesLoadEvent extends ImageCarouselEvent {}
+
+class NextImagesEvent extends ImageCarouselEvent {}
 
 class ImageLikeEvent extends ImageCarouselEvent {}
 
