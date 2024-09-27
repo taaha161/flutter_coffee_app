@@ -7,6 +7,7 @@ import 'package:coffee_app_vgv/models/image_model.dart';
 import 'package:coffee_app_vgv/utils/image_state_enums.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
 
 part 'image_carousel_event.dart';
 part 'image_carousel_state.dart';
@@ -67,7 +68,9 @@ class ImageCarouselBloc extends Bloc<ImageCarouselEvent, ImageCarouselState> {
   }
 
   Future<void> _likeImage(ImageLikeEvent event, Emitter emit) async {
-    final path = await imageRepo.saveImageToLocal(event.imageUrl);
+    final localDirectory = await getTemporaryDirectory();
+    final path =
+        await imageRepo.saveImageToLocal(event.imageUrl); //save image locally
     if (path != null) {
       List<String> newPaths = List.from(state.favoriteImagesPaths);
       newPaths.add(path);

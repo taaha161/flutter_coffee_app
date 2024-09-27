@@ -1,12 +1,7 @@
-import 'package:coffee_app_vgv/bloc/image_carousel_bloc/bloc/image_carousel_bloc.dart';
 import 'package:coffee_app_vgv/ui/favorite_screen.dart';
 import 'package:coffee_app_vgv/ui/home_screen.dart';
 import 'package:coffee_app_vgv/utils/colors.dart';
-import 'package:coffee_app_vgv/utils/image_state_enums.dart';
 import 'package:flutter/material.dart';
-import 'package:appinio_swiper/appinio_swiper.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 
 class BottomBar extends StatefulWidget {
@@ -17,12 +12,12 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBarState extends State<BottomBar> {
-  NotchBottomBarController _controller = NotchBottomBarController(index: 0);
+  final NotchBottomBarController _controller =
+      NotchBottomBarController(index: 0);
   final _pageController = PageController(initialPage: 0);
   @override
   void initState() {
     super.initState();
-    // context.read<ImageCarouselBloc>().add(ImagesLoadEvent());
   }
 
   @override
@@ -42,7 +37,7 @@ class _BottomBarState extends State<BottomBar> {
             itemLabelStyle: TextStyle(color: whiteColor),
             kIconSize: 24,
             kBottomRadius: 28,
-            bottomBarItems: [
+            bottomBarItems: const [
               BottomBarItem(
                 inActiveItem: Icon(
                   Icons.coffee,

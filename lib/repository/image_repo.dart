@@ -10,15 +10,16 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ImageRepository {
-  Future<List<ImageModel>?> loadNetworkImage() async {
+  Future<List<ImageModel>?> loadNetworkImage({http.Client? client}) async {
     try {
       final url = Uri.parse("https://coffee.alexflipnote.dev/random.json");
       final List<ImageModel> imageList = [];
+      final httpClient = client ?? http.Client(); // for unit tests later
 
       for (int i = 0; i < 10; i++) {
-        // fetch 4 images to prevent user lag i.e pagination
+        // fetch 10 images to prevent user lag i.e pagination
 
-        final response = await http.get(url);
+        final response = await httpClient.get(url);
         if (response.statusCode == 200) {
           // response OK
           final jsonObject = json.decode(response.body);
@@ -35,22 +36,27 @@ class ImageRepository {
     }
   }
 
-  Future<String?> saveImageToLocal(String imageUrl) async {
+  Future<String?> saveImageToLocal(
+    String imageUrl, {
+    Dio? dio,
+    SharedPreferences? sharedPreferences,
+    Directory? localDirectory,
+  }) async {
     try {
-      final localdirectory = await getTemporaryDirectory();
-      SharedPreferences sp = await SharedPreferences.getInstance();
+      final dioClient = dio ?? Dio(); // for unit tests later
+      final sp = sharedPreferences ?? await SharedPreferences.getInstance();
+      final directory = localDirectory ?? await getTemporaryDirectory();
+
       final existingImagePaths = sp.getStringList(favoriteImagesListK) ?? [];
+      final fileName = imageUrl.split('/').last;
+      final filePath = '${directory.path}/$fileName';
 
-      final fileName = imageUrl.split('/').last; // Use the image name from URL
-      final filePath = '${localdirectory.path}/$fileName';
+      final response = await dioClient.download(imageUrl, filePath);
 
-      final response = await Dio().download(imageUrl, filePath);
-
-      // Check if the download was successful
       if (response.statusCode == 200) {
         existingImagePaths.add(filePath);
-        sp.setStringList(favoriteImagesListK, existingImagePaths);
-        return filePath; // Return the local path of the saved image
+        await sp.setStringList(favoriteImagesListK, existingImagePaths);
+        return filePath;
       } else {
         log('Failed to download image: ${response.statusCode}');
         return null;
@@ -61,24 +67,9 @@ class ImageRepository {
     }
   }
 
-  Future<File?> getImageFromLocalCache(String filePath) async {
-    try {
-      // Check if the file exists in the local storage
-      final file = File(filePath);
-      if (await file.exists()) {
-        return file; // Return the File object if it exists
-      } else {
-        log('Image not found in local cache.');
-        return null;
-      }
-    } catch (e) {
-      log('Error retrieving image from local cache: $e');
-      return null;
-    }
-  }
-
-  Future<List<String>?> getFavoriteImagePaths() async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
+  Future<List<String>?> getFavoriteImagePaths(
+      {SharedPreferences? perfs}) async {
+    SharedPreferences sp = perfs ?? await SharedPreferences.getInstance();
     final paths = sp.getStringList(favoriteImagesListK);
     return paths;
   }

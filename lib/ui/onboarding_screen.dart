@@ -14,7 +14,7 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final introKey = GlobalKey<IntroductionScreenState>();
 
-  void _onIntroEnd(context) {
+  void _finishonboarding(context) {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (_) => const BottomBar()),
     );
@@ -28,11 +28,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       allowImplicitScrolling: true,
       autoScrollDuration: 4000,
       infiniteAutoScroll: true,
-      globalHeader: Align(
+      globalHeader: const Align(
         alignment: Alignment.topRight,
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(top: 16, right: 16),
+            padding: EdgeInsets.only(top: 16, right: 16),
           ),
         ),
       ),
@@ -94,8 +94,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
         )
       ],
-      onDone: () => _onIntroEnd(context),
-      onSkip: () => _onIntroEnd(context),
+      onDone: () => _finishonboarding(context),
+      onSkip: () => _finishonboarding(context),
       showSkipButton: true,
       skipOrBackFlex: 0,
       nextFlex: 0,
