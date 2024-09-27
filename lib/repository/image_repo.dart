@@ -1,14 +1,12 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
-import 'dart:io';
 import 'package:coffee_app_vgv/utils/app_constants.dart';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:coffee_app_vgv/models/image_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ImageRepository {

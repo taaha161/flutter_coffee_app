@@ -38,7 +38,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 child: AppinioSwiper(
                   allowUnlimitedUnSwipe: true,
                   loop: true,
-                  backgroundCardCount: 1,
+                  backgroundCardCount:
+                      state.favoriteImagesPaths.isEmpty ? 0 : 1,
                   maxAngle: 5,
                   cardCount: state.favoriteImagesPaths.isEmpty
                       ? 1
