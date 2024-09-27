@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:coffee_app_vgv/bloc/image_carousel_bloc/bloc/image_carousel_bloc.dart';
@@ -7,8 +6,6 @@ import 'package:coffee_app_vgv/utils/image_state_enums.dart';
 import 'package:flutter/material.dart';
 import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
@@ -61,7 +58,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
 _cardWidget(ImageCarouselState state, int index, BuildContext context) {
   if (state.favoriteImagesPaths.isEmpty) {
-    return Center(
+    return const Center(
       child: Text("No saved image found",
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -71,7 +68,7 @@ _cardWidget(ImageCarouselState state, int index, BuildContext context) {
   }
   switch (state.imageState) {
     case ImageState.loading:
-      return Center(
+      return const Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -111,7 +108,7 @@ _cardWidget(ImageCarouselState state, int index, BuildContext context) {
               height: 100,
               width: MediaQuery.of(context).size.width,
               color: whiteColor,
-              child: Center(
+              child: const Center(
                 child: Text(
                   "Favorite Polaroid",
                   style: TextStyle(color: coffeeColor),
@@ -123,7 +120,7 @@ _cardWidget(ImageCarouselState state, int index, BuildContext context) {
       );
 
     case ImageState.error:
-      return Center(
+      return const Center(
         child: Text("No saved image found",
             textAlign: TextAlign.center,
             style: TextStyle(

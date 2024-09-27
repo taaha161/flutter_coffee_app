@@ -71,7 +71,7 @@ _cardWidget(ImageCarouselState state, int index, BuildContext context) {
   try {
     switch (state.imageState) {
       case ImageState.loading:
-        return Center(
+        return const Center(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -129,7 +129,7 @@ _cardWidget(ImageCarouselState state, int index, BuildContext context) {
                 height: 100,
                 width: MediaQuery.of(context).size.width,
                 color: whiteColor,
-                child: Center(
+                child: const Center(
                   child: Text(
                     "Very Good Coffee Polaroid",
                     style: TextStyle(color: coffeeColor),
@@ -141,7 +141,7 @@ _cardWidget(ImageCarouselState state, int index, BuildContext context) {
         );
 
       case ImageState.error:
-        return Center(
+        return const Center(
           child: Text(
               "An error occurred, please check your internet connection and try again",
               textAlign: TextAlign.center,
@@ -152,7 +152,7 @@ _cardWidget(ImageCarouselState state, int index, BuildContext context) {
     }
   } catch (e) {
     if (state.images.isEmpty) {
-      return Center(
+      return const Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -169,7 +169,7 @@ _cardWidget(ImageCarouselState state, int index, BuildContext context) {
         ],
       ));
     } else {
-      return Center(
+      return const Center(
         child: Text(
             "An error occurred, please check your internet connection and try again",
             textAlign: TextAlign.center,

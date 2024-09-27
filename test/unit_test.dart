@@ -167,7 +167,7 @@ void main() {
 
     test('should return null on SocketException', () async {
       // Mock a SocketException
-      when(mockClient.get(any)).thenThrow(SocketException('Failed to connect'));
+      when(mockClient.get(any)).thenThrow(const SocketException('Failed to connect'));
 
       final result = await imageRepo.loadNetworkImage(client: mockClient);
 

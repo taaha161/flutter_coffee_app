@@ -31,10 +31,10 @@ class _BottomBarState extends State<BottomBar> {
             onTap: (int index) {
               _controller.jumpTo(index);
               _pageController.animateToPage(index,
-                  duration: Duration(milliseconds: 100),
+                  duration: const Duration(milliseconds: 100),
                   curve: Curves.bounceIn);
             },
-            itemLabelStyle: TextStyle(color: whiteColor),
+            itemLabelStyle: const TextStyle(color: whiteColor),
             kIconSize: 24,
             kBottomRadius: 28,
             bottomBarItems: const [
