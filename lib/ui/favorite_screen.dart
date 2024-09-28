@@ -66,6 +66,7 @@ _cardWidget(ImageCarouselState state, int index, BuildContext context) {
           )),
     );
   }
+
   switch (state.imageState) {
     case ImageState.loading:
       return const Center(
@@ -85,6 +86,13 @@ _cardWidget(ImageCarouselState state, int index, BuildContext context) {
         ],
       ));
     case ImageState.success:
+      File? file;
+      try {
+        file = File(state.favoriteImagesPaths[
+            index]); // checking if the file exists in that path
+      } catch (e) {
+        file = null;
+      }
       return Card(
         elevation: 4.0, // Adds a shadow effect
         shape: RoundedRectangleBorder(
@@ -96,13 +104,15 @@ _cardWidget(ImageCarouselState state, int index, BuildContext context) {
           mainAxisSize: MainAxisSize.max,
           children: [
             Expanded(
-              child: Image.file(
-                height: MediaQuery.of(context).size.height * 0.6,
-                width: MediaQuery.of(context).size.width * 1,
-                File(state.favoriteImagesPaths[index]),
-                fit: BoxFit
-                    .cover, // Adjusts the image to according to the available height
-              ),
+              child: file != null
+                  ? Image.file(
+                      height: MediaQuery.of(context).size.height * 0.6,
+                      width: MediaQuery.of(context).size.width * 1,
+                      file,
+                      fit: BoxFit
+                          .cover, // Adjusts the image to according to the available height
+                    )
+                  : Image.asset("aseets/error.png"),
             ),
             Container(
               height: 100,

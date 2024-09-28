@@ -70,6 +70,7 @@ class ImageCarouselBloc extends Bloc<ImageCarouselEvent, ImageCarouselState> {
   Future<void> _likeImage(ImageLikeEvent event, Emitter emit) async {
     final path = await imageRepo.saveImageToLocal(
         event.imageUrl); //save image locally using the imageUrl as the path
+
     if (path != null) {
       List<String> newPaths = List.from(state
           .favoriteImagesPaths); // if saving path is successful add is it to the current list of paths

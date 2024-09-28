@@ -38,7 +38,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       ),
       pages: [
         PageViewModel(
-          image: Image.asset("assets/coffee.png"),
+          image: Image.asset(
+            "assets/coffee.png",
+            height: 100,
+            width: 100,
+          ),
           title: "Welcome to very good coffee",
           body: "We may have your favorite coffee!",
           decoration: pageDecoration,
