@@ -76,4 +76,16 @@ class ImageRepository {
         sp.getStringList(favoriteImagesListK); // get paths from local storage
     return paths;
   }
+
+  Future<List<String>> dislikeImage(String imagePath,
+      {SharedPreferences? perfs}) async {
+    SharedPreferences sp = perfs ?? await SharedPreferences.getInstance();
+    final paths = sp.getStringList(favoriteImagesListK) ??
+        []; // get paths from local storage
+
+    if (paths.isNotEmpty) {
+      paths.remove(imagePath);
+    }
+    return paths;
+  }
 }

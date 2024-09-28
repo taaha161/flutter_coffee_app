@@ -23,6 +23,9 @@ class ImageCarouselBloc extends Bloc<ImageCarouselEvent, ImageCarouselState> {
     on<ImageLikeEvent>((event, emit) async {
       await _likeImage(event, emit);
     });
+    on<ImageDisLikeEvent>((event, emit) async {
+      await _disLikeImage(event, emit);
+    });
   }
   Future<void> _fetchNetworkImage(
       ImageCarouselEvent event, Emitter emit) async {
@@ -75,6 +78,17 @@ class ImageCarouselBloc extends Bloc<ImageCarouselEvent, ImageCarouselState> {
       List<String> newPaths = List.from(state
           .favoriteImagesPaths); // if saving path is successful add is it to the current list of paths
       newPaths.add(path);
+      emit(state.copyWith(favoriteImagesPaths: newPaths));
+    }
+  }
+
+  Future<void> _disLikeImage(ImageDisLikeEvent event, Emitter emit) async {
+    final paths = await imageRepo
+        .dislikeImage(event.imageUrl); //remove image from local storage
+
+    if (paths.isNotEmpty) {
+      List<String> newPaths = List.from(state.favoriteImagesPaths);
+      newPaths.remove(event.imageUrl); // remove image from current paths
       emit(state.copyWith(favoriteImagesPaths: newPaths));
     }
   }

@@ -93,40 +93,56 @@ _cardWidget(ImageCarouselState state, int index, BuildContext context) {
       } catch (e) {
         file = null;
       }
-      return Card(
-        elevation: 4.0, // Adds a shadow effect
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0), // Rounded corners
-        ),
-        color: coffeeColor,
-
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Expanded(
-              child: file != null
-                  ? Image.file(
-                      height: MediaQuery.of(context).size.height * 0.6,
-                      width: MediaQuery.of(context).size.width * 1,
-                      file,
-                      fit: BoxFit
-                          .cover, // Adjusts the image to according to the available height
-                    )
-                  : Image.asset("aseets/error.png"),
+      return Stack(
+        children: [
+          Card(
+            elevation: 4.0, // Adds a shadow effect
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0), // Rounded corners
             ),
-            Container(
-              height: 100,
-              width: MediaQuery.of(context).size.width,
-              color: whiteColor,
-              child: const Center(
-                child: Text(
-                  "Favorite Polaroid",
-                  style: TextStyle(color: coffeeColor),
+            color: coffeeColor,
+
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  child: file != null
+                      ? Image.file(
+                          height: MediaQuery.of(context).size.height * 0.6,
+
+                          file,
+                          fit: BoxFit
+                              .cover, // Adjusts the image to according to the available height
+                        )
+                      : Image.asset("aseets/error.png"),
                 ),
-              ),
-            )
-          ],
-        ),
+                Container(
+                  height: 100,
+                  width: MediaQuery.of(context).size.width,
+                  color: whiteColor,
+                  child: const Center(
+                    child: Text(
+                      "Favorite Polaroid",
+                      style: TextStyle(color: coffeeColor),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Positioned(
+              right: 5,
+              top: 5,
+              child: GestureDetector(
+                  onTap: () {
+                    context.read<ImageCarouselBloc>().add(ImageDisLikeEvent(
+                        imageUrl: state.favoriteImagesPaths[index]));
+                  },
+                  child: Icon(
+                    Icons.cancel,
+                    color: Colors.red,
+                  )))
+        ],
       );
 
     case ImageState.error:
