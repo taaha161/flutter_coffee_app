@@ -86,10 +86,8 @@ class ImageCarouselBloc extends Bloc<ImageCarouselEvent, ImageCarouselState> {
     final paths = await imageRepo
         .dislikeImage(event.imageUrl); //remove image from local storage
 
-    if (paths.isNotEmpty) {
-      List<String> newPaths = List.from(state.favoriteImagesPaths);
-      newPaths.remove(event.imageUrl); // remove image from current paths
-      emit(state.copyWith(favoriteImagesPaths: newPaths));
-    }
+    List<String> newPaths = List.from(state.favoriteImagesPaths);
+    newPaths.remove(event.imageUrl); // remove image from current paths
+    emit(state.copyWith(favoriteImagesPaths: newPaths));
   }
 }

@@ -86,6 +86,7 @@ class ImageRepository {
     if (paths.isNotEmpty) {
       paths.remove(imagePath);
     }
+    sp.setStringList(favoriteImagesListK, paths);
     return paths;
   }
 }
