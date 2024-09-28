@@ -40,7 +40,7 @@ To run **Very Good Coffee** on your local machine, follow the steps below:
 
     Copy code
 
-    `git clone https://github.com/yourusername/very-good-coffee.git
+    `git clone https://github.com/taaha161/very-good-coffee.git
     cd very-good-coffee`
 
 2.  **Install Dependencies**
