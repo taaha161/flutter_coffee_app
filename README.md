@@ -16,10 +16,10 @@ Features
 Screenshots
 -----------
 
-![Simulator Screenshot - test - 2024-09-28 at 05 26 04](https://github.com/user-attachments/assets/e241c57c-7485-4e6d-9e38-6c92842f4864)
-![Simulator Screenshot - test - 2024-09-28 at 05 26 06](https://github.com/user-attachments/assets/1a02e086-0400-4796-9ad1-107f56f980cf)
-![Simulator Screenshot - test - 2024-09-28 at 05 26 08](https://github.com/user-attachments/assets/f7cfa5ec-ea2f-4d95-9e7b-caee85ab37cb)
-![Simulator Screenshot - test - 2024-09-28 at 05 27 49](https://github.com/user-attachments/assets/8c482072-296e-4676-9b7b-bc3e789378bc)
+![Simulator Screenshot - test - 2024-09-28 at 05 26 04](https://github.com/user-attachments/assets/e241c57c-7485-4e6d-9e38-6c92842f4864 | width=100)
+![Simulator Screenshot - test - 2024-09-28 at 05 26 06](https://github.com/user-attachments/assets/1a02e086-0400-4796-9ad1-107f56f980cf | width=100)
+![Simulator Screenshot - test - 2024-09-28 at 05 26 08](https://github.com/user-attachments/assets/f7cfa5ec-ea2f-4d95-9e7b-caee85ab37cb | width=100)
+![Simulator Screenshot - test - 2024-09-28 at 05 27 49](https://github.com/user-attachments/assets/8c482072-296e-4676-9b7b-bc3e789378bc | width=100)
 
 
 Installation
