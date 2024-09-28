@@ -11,6 +11,7 @@ Features
 -   👍 **Save Your Favorites**: Swipe up or down to save your favorite coffee images for offline access.
 -   📂 **Offline Access**: View your saved images anytime, even when you're offline.
 -   🚀 **Smooth UI**: User-friendly and intuitive interface with animations and visual feedback.
+-   🚀 **Unit Tests**: Tests to make sure everything runs smoothly.
 
 Screenshots
 -----------
