@@ -11,13 +11,17 @@ Features
 -   👍 **Save Your Favorites**: Swipe up or down to save your favorite coffee images for offline access.
 -   📂 **Offline Access**: View your saved images anytime, even when you're offline.
 -   🚀 **Smooth UI**: User-friendly and intuitive interface with animations and visual feedback.
+-   🚀 **Unit Tests**: Tests to make sure everything runs smoothly.
 
 Screenshots
 -----------
 
-*Add screenshots of your app here to showcase its interface and functionality.*
+<img src="https://github.com/user-attachments/assets/e241c57c-7485-4e6d-9e38-6c92842f4864" width="100" alt="Simulator Screenshot - test - 2024-09-28 at 05 26 04">
+<img src="https://github.com/user-attachments/assets/1a02e086-0400-4796-9ad1-107f56f980cf" width="100" alt="Simulator Screenshot - test - 2024-09-28 at 05 26 06">
+<img src="https://github.com/user-attachments/assets/f7cfa5ec-ea2f-4d95-9e7b-caee85ab37cb" width="100" alt="Simulator Screenshot - test - 2024-09-28 at 05 26 08">
+<img src="https://github.com/user-attachments/assets/8c482072-296e-4676-9b7b-bc3e789378bc" width="100" alt="Simulator Screenshot - test - 2024-09-28 at 05 27 49">
 
-![Screenshot 1](#) ![Screenshot 2](#) ![Screenshot 3](#)
+
 
 Installation
 ------------
