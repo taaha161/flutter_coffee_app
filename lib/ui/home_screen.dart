@@ -49,9 +49,8 @@ class _HomeScreenState extends State<HomeScreen>
                           imageUrl: state.images[previousIndex].imageUrl!));
                     }
                     if (targetIndex % 9 == 0) {
-                      context
-                          .read<ImageCarouselBloc>()
-                          .add(NextNetworkImagesEvent()); // load more coffee
+                      context.read<ImageCarouselBloc>().add(
+                          NextNetworkImagesEvent()); // load more coffee after the user has looked at 9 images
                     }
                   },
                   cardBuilder: (BuildContext context, int index) {

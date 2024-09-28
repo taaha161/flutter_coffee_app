@@ -47,7 +47,8 @@ class ImageRepository {
       final sp = sharedPreferences ?? await SharedPreferences.getInstance();
       final directory = localDirectory ?? await getTemporaryDirectory();
 
-      final existingImagePaths = sp.getStringList(favoriteImagesListK) ?? [];
+      final existingImagePaths = sp.getStringList(favoriteImagesListK) ??
+          []; // fetch existing paths to append into
       final fileName = imageUrl.split('/').last;
       final filePath = '${directory.path}/$fileName';
 
@@ -55,7 +56,8 @@ class ImageRepository {
 
       if (response.statusCode == 200) {
         existingImagePaths.add(filePath);
-        await sp.setStringList(favoriteImagesListK, existingImagePaths);
+        await sp.setStringList(favoriteImagesListK,
+            existingImagePaths); // add path to local storage
         return filePath;
       } else {
         log('Failed to download image: ${response.statusCode}');
@@ -70,7 +72,8 @@ class ImageRepository {
   Future<List<String>?> getFavoriteImagePaths(
       {SharedPreferences? perfs}) async {
     SharedPreferences sp = perfs ?? await SharedPreferences.getInstance();
-    final paths = sp.getStringList(favoriteImagesListK);
+    final paths =
+        sp.getStringList(favoriteImagesListK); // get paths from local storage
     return paths;
   }
 }

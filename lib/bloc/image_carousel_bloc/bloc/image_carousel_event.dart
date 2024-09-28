@@ -14,7 +14,8 @@ class LocalImagesLoadEvent extends ImageCarouselEvent {}
 class NextNetworkImagesEvent extends ImageCarouselEvent {}
 
 class ImageLikeEvent extends ImageCarouselEvent {
-  final String imageUrl;
+  final String
+      imageUrl; // We need the image url to uniquely identify each image's path
   const ImageLikeEvent({required this.imageUrl});
 
   @override

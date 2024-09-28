@@ -3,8 +3,9 @@ part of 'image_carousel_bloc.dart';
 class ImageCarouselState extends Equatable {
   final List<ImageModel> images; // images list object
   final List<String> favoriteImagesPaths; // paths to favorite images
-  final ImageState imageState;
-  final int imageCount;
+  final ImageState
+      imageState; // current state of image i.e loaded, error, success
+  final int imageCount; // total number of images displayed
   const ImageCarouselState(
       {this.images = const <ImageModel>[],
       this.imageState = ImageState.loading,

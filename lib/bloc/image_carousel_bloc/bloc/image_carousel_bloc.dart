@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:coffee_app_vgv/repository/image_repo.dart';
 import 'package:coffee_app_vgv/models/image_model.dart';
@@ -28,8 +27,8 @@ class ImageCarouselBloc extends Bloc<ImageCarouselEvent, ImageCarouselState> {
   Future<void> _fetchNetworkImage(
       ImageCarouselEvent event, Emitter emit) async {
     try {
-      emit(state.copyWith(imageState: ImageState.loading));
-      final value = await imageRepo.loadNetworkImage();
+      emit(state.copyWith(imageState: ImageState.loading)); // start by loading
+      final value = await imageRepo.loadNetworkImage(); // fetch 10 more images
       if (value != null) {
         emit(state.copyWith(
             images: value,
@@ -48,16 +47,20 @@ class ImageCarouselBloc extends Bloc<ImageCarouselEvent, ImageCarouselState> {
 
   Future<void> _fetchNextNetworkImage(
       ImageCarouselEvent event, Emitter emit) async {
-    emit(state.copyWith(imageState: ImageState.loading));
-    await _fetchNetworkImage(event, emit);
+    emit(state.copyWith(
+        imageState: ImageState.loading)); // start by changing state to loading
+    await _fetchNetworkImage(event, emit); // load more images
   }
 
   Future<void> _fetchLocalImages(ImageCarouselEvent event, Emitter emit) async {
-    emit(state.copyWith(imageState: ImageState.loading));
-    final paths = await imageRepo.getFavoriteImagePaths();
+    emit(state.copyWith(
+        imageState: ImageState.loading)); // start by changing state to loading
+    final paths = await imageRepo.getFavoriteImagePaths(); // Get local paths
     if (paths != null) {
       emit(state.copyWith(
-          favoriteImagesPaths: paths, imageState: ImageState.success));
+          favoriteImagesPaths: paths,
+          imageState: ImageState
+              .success)); // if paths available change state to success and show paths
     } else {
       //No paths found hence error to be handled in UI
       emit(state.copyWith(imageState: ImageState.error));
@@ -65,11 +68,11 @@ class ImageCarouselBloc extends Bloc<ImageCarouselEvent, ImageCarouselState> {
   }
 
   Future<void> _likeImage(ImageLikeEvent event, Emitter emit) async {
-    final localDirectory = await getTemporaryDirectory();
-    final path =
-        await imageRepo.saveImageToLocal(event.imageUrl); //save image locally
+    final path = await imageRepo.saveImageToLocal(
+        event.imageUrl); //save image locally using the imageUrl as the path
     if (path != null) {
-      List<String> newPaths = List.from(state.favoriteImagesPaths);
+      List<String> newPaths = List.from(state
+          .favoriteImagesPaths); // if saving path is successful add is it to the current list of paths
       newPaths.add(path);
       emit(state.copyWith(favoriteImagesPaths: newPaths));
     }
