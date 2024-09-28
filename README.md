@@ -1,7 +1,7 @@
 Very Good Coffee ☕️
 ===================
 
-**Very Good Coffee** is a Flutter application that allows users to explore and enjoy random coffee images from the web. Users can swipe through images to interact with them --- swipe left or right to skip the image if they don't like it, and swipe up or down to save the image for offline access. The saved images can be viewed later, even without an internet connection, offering a delightful coffee-themed experience.
+**Very Good Coffee** is a Flutter application made with Bloc State Management that allows users to explore and enjoy random coffee images from the web. Users can swipe through images to interact with them --- swipe left or right to skip the image if they don't like it, and swipe up or down to save the image for offline access. The saved images can be viewed later, even without an internet connection, offering a delightful coffee-themed experience.
 
 Features
 --------
@@ -83,9 +83,11 @@ Dependencies
 ------------
 
 -   [Flutter](https://flutter.dev)
+-   Bloc/Flutter_Bloc: For State management
 -   Dio: For network requests and image downloads.
 -   Shared Preferences: To store the paths of saved images for offline access.
 -   Shimmer: For loading animations while images are being fetched.
+  
 
 Contributing
 ------------
