@@ -82,11 +82,22 @@ class ImageRepository {
     SharedPreferences sp = perfs ?? await SharedPreferences.getInstance();
     final paths = sp.getStringList(favoriteImagesListK) ??
         []; // get paths from local storage
-
-    if (paths.isNotEmpty) {
-      paths.remove(imagePath);
+    try {
+      if (paths.isNotEmpty) {
+        paths.remove(imagePath); // delete file path from stored list
+        await File(imagePath).delete(); // delete file itselt
+      }
+      sp.setStringList(favoriteImagesListK, paths);
+      return paths;
+    } on PathNotFoundException {
+      // Do not try to remove file as it does not exist
+      if (paths.isNotEmpty) {
+        paths.remove(imagePath); // delete file path from stored list
+      }
+      sp.setStringList(favoriteImagesListK, paths);
+      return paths;
+    } catch (e) {
+      throw Exception("Something went wrong");
     }
-    sp.setStringList(favoriteImagesListK, paths);
-    return paths;
   }
 }
