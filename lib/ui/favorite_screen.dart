@@ -112,7 +112,7 @@ _cardWidget(ImageCarouselState state, int index, BuildContext context) {
 
                           file,
                           fit: BoxFit
-                              .cover, // Adjusts the image to according to the available height
+                              .cover, // Adjusts the image to according to the available space
                         )
                       : Image.asset("aseets/error.png"),
                 ),
