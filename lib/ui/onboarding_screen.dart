@@ -71,7 +71,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           title: "Save Coffee Images",
           image: Image.asset("assets/swipe_up.png"),
           body:
-              "If you really like a coffee image you can save it by swiping up",
+              "If you really like a coffee image you can save it by swiping up, Tread carefully you cannot dislike them later ;)",
           decoration: pageDecoration.copyWith(
             contentMargin: const EdgeInsets.symmetric(horizontal: 16),
             fullScreen: true,
@@ -84,7 +84,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           title: "Save Coffee Images",
           image: Image.asset("assets/swipe_down.png"),
           body:
-              "If you really like a coffee image you can save it by swiping down",
+              "If you really like a coffee image you can save it by swiping down, Tread carefully you cannot dislike them later ;)",
           decoration: pageDecoration.copyWith(
             contentMargin: const EdgeInsets.symmetric(horizontal: 16),
             fullScreen: true,

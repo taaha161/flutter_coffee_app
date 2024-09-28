@@ -6,6 +6,7 @@ import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:shimmer/shimmer.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -47,6 +48,8 @@ class _HomeScreenState extends State<HomeScreen>
                         activity.direction == AxisDirection.down) {
                       context.read<ImageCarouselBloc>().add(ImageLikeEvent(
                           imageUrl: state.images[previousIndex].imageUrl!));
+
+                      Fluttertoast.showToast(msg: "Your image has been saved");
                     }
                     if (targetIndex % 9 == 0) {
                       context.read<ImageCarouselBloc>().add(
