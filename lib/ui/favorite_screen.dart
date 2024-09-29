@@ -147,7 +147,7 @@ _cardWidget(ImageCarouselState state, int index, BuildContext context) {
 
     case ImageState.error:
       return const Center(
-        child: Text("No saved image found",
+        child: Text("Something went wrong",
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.white,

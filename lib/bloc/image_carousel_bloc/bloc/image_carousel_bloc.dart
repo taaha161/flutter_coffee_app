@@ -64,9 +64,6 @@ class ImageCarouselBloc extends Bloc<ImageCarouselEvent, ImageCarouselState> {
           favoriteImagesPaths: paths,
           imageState: ImageState
               .success)); // if paths available change state to success and show paths
-    } else {
-      //No paths found hence error to be handled in UI
-      emit(state.copyWith(imageState: ImageState.error));
     }
   }
 
