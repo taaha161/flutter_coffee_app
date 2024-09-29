@@ -16,13 +16,13 @@ import 'dart:io';
 
 import 'unit_test.mocks.dart';
 
-// Generate mocks for Dio and SharedPreferences
-@GenerateMocks([Dio, SharedPreferences, http.Client])
+@GenerateMocks([Dio, SharedPreferences, http.Client, File])
 void main() {
   late MockDio mockDio;
   late MockSharedPreferences mockSharedPreferences;
   late ImageRepository imageRepo;
   late MockClient mockClient;
+  late MockFile mockFile;
 
   const favoriteImagesListK = 'favoriteImagesList';
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -34,6 +34,7 @@ void main() {
     imageRepo = ImageRepository();
     PathProviderPlatform.instance = MockPathProviderPlatform();
     mockClient = MockClient();
+    mockFile = MockFile();
   });
 
   group('saveImageToLocal', () {
@@ -167,7 +168,8 @@ void main() {
 
     test('should return null on SocketException', () async {
       // Mock a SocketException
-      when(mockClient.get(any)).thenThrow(const SocketException('Failed to connect'));
+      when(mockClient.get(any))
+          .thenThrow(const SocketException('Failed to connect'));
 
       final result = await imageRepo.loadNetworkImage(client: mockClient);
 
@@ -186,6 +188,78 @@ void main() {
       // Assertions
       expect(result, isNull);
       verify(mockClient.get(any)).called(1); // Verify it stops on exception
+    });
+  });
+
+  group('dislikeImage', () {
+    test('should remove image path and delete file on success', () async {
+      const imagePath = '/path/to/coffeeImage.png';
+      final List<String> imagePaths = [imagePath];
+
+      // Mocking SharedPreferences to return a list with the image path
+      when(mockSharedPreferences.getStringList(favoriteImagesListK))
+          .thenReturn(imagePaths);
+      when(mockSharedPreferences.setStringList(any, any))
+          .thenAnswer((_) async => true);
+
+      // Mocking File.delete to complete successfully
+      when(mockFile.delete()).thenAnswer((_) async => mockFile);
+
+      // Call the dislikeImage function
+      final result = await imageRepo.dislikeImage(imagePath,
+          perfs: mockSharedPreferences, file: mockFile);
+
+      // Verify the path was removed from SharedPreferences
+      expect(result.contains(imagePath), false);
+      verify(mockFile.delete()).called(1); // Ensure the file was deleted
+      verify(mockSharedPreferences.setStringList(favoriteImagesListK, result));
+      // Updated preferences
+    });
+
+    test(
+        'should remove image path but skip file deletion on PathNotFoundException',
+        () async {
+      const imagePath = '/path/to/coffeeImage.png';
+      final List<String> imagePaths = [imagePath];
+
+      // Mock SharedPreferences
+      when(mockSharedPreferences.getStringList(favoriteImagesListK))
+          .thenReturn(imagePaths);
+      when(mockSharedPreferences.setStringList(any, any))
+          .thenAnswer((_) async => true);
+
+      // Call the function
+      final result =
+          await imageRepo.dislikeImage(imagePath, perfs: mockSharedPreferences);
+
+      // Simulate a PathNotFoundException (file not found)
+      when(mockFile.delete()).thenThrow(FileSystemException('File not found'));
+
+      // Verify the image path was removed from SharedPreferences
+      expect(result.contains(imagePath), false);
+      verify(mockSharedPreferences.setStringList(favoriteImagesListK, result))
+          .called(1); // Updated preferences
+    });
+
+    test('should throw exception on unexpected error', () async {
+      const imagePath = '/path/to/coffeeImage.png';
+      final List<String> imagePaths = [imagePath];
+
+      // Mock SharedPreferences
+      when(mockSharedPreferences.getStringList(favoriteImagesListK))
+          .thenReturn(imagePaths);
+      when(mockSharedPreferences.setStringList(any, any))
+          .thenAnswer((_) async => true);
+
+      // Simulate an unexpected error during file deletion
+      when(mockFile.delete()).thenThrow(Exception('Unexpected error'));
+
+      expect(
+          () async => await imageRepo.dislikeImage(imagePath,
+              perfs: mockSharedPreferences, file: mockFile),
+          throwsException);
+
+      verify(mockFile.delete()).called(1); // Ensure file deletion was attempted
     });
   });
 }

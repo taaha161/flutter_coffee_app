@@ -78,26 +78,29 @@ class ImageRepository {
   }
 
   Future<List<String>> dislikeImage(String imagePath,
-      {SharedPreferences? perfs}) async {
-    SharedPreferences sp = perfs ?? await SharedPreferences.getInstance();
+      {SharedPreferences? perfs, File? file}) async {
+    SharedPreferences sp =
+        perfs ?? await SharedPreferences.getInstance(); // for unit test later
+    final imageFile = file ?? File(imagePath); // for unit test later
+
     final paths = sp.getStringList(favoriteImagesListK) ??
         []; // get paths from local storage
     try {
       if (paths.isNotEmpty) {
         paths.remove(imagePath); // delete file path from stored list
-        await File(imagePath).delete(); // delete file itselt
+        await imageFile.delete(); // delete file itselt
       }
       sp.setStringList(favoriteImagesListK, paths);
       return paths;
     } on PathNotFoundException {
-      // Do not try to remove file as it does not exist
+      // Do not try to delete file as it does not exist
       if (paths.isNotEmpty) {
         paths.remove(imagePath); // delete file path from stored list
       }
       sp.setStringList(favoriteImagesListK, paths);
       return paths;
     } catch (e) {
-      throw Exception("Something went wrong");
+      throw Exception("Something went wrong $e");
     }
   }
 }
