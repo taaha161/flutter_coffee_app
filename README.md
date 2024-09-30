@@ -40,7 +40,6 @@ To run **Very Good Coffee** on your local machine, follow the steps below:
 
     Open your terminal and run:
 
-    bash
 
     Copy code
 
@@ -51,7 +50,7 @@ To run **Very Good Coffee** on your local machine, follow the steps below:
 
     Navigate to the project directory and install the required dependencies:
 
-    bash
+
 
     Copy code
 
@@ -61,7 +60,7 @@ To run **Very Good Coffee** on your local machine, follow the steps below:
 
     Connect your device or start an emulator, then run:
 
-    bash
+
 
     Copy code
 
