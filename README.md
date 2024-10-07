@@ -40,7 +40,6 @@ To run **Very Good Coffee** on your local machine, follow the steps below:
 
     Open your terminal and run:
 
-    bash
 
     Copy code
 
@@ -51,7 +50,7 @@ To run **Very Good Coffee** on your local machine, follow the steps below:
 
     Navigate to the project directory and install the required dependencies:
 
-    bash
+
 
     Copy code
 
@@ -61,7 +60,7 @@ To run **Very Good Coffee** on your local machine, follow the steps below:
 
     Connect your device or start an emulator, then run:
 
-    bash
+
 
     Copy code
 
@@ -93,17 +92,7 @@ Dependencies
 -   Shimmer: For loading animations while images are being fetched.
   
 
-Contributing
-------------
 
-Contributions are welcome! Please fork the repository and create a pull request with your changes. If you find a bug, kindly open an issue.
-
-License
--------
-
-This project is licensed under the MIT License. See the LICENSE file for more details.
-
-* * * * *
 
 Enjoy your coffee experience with **Very Good Coffee**! ☕✨
 
