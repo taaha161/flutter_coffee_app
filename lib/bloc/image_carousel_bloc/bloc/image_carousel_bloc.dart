@@ -3,7 +3,6 @@ import 'package:coffee_app_vgv/repository/image_repo.dart';
 import 'package:coffee_app_vgv/models/image_model.dart';
 import 'package:coffee_app_vgv/utils/image_state_enums.dart';
 import 'package:equatable/equatable.dart';
-import 'package:path_provider/path_provider.dart';
 
 part 'image_carousel_event.dart';
 part 'image_carousel_state.dart';

@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen>
                   initialIndex: 0,
                   backgroundCardCount: 0,
                   maxAngle: 5,
-                  cardCount: state.imageCount,
+                  cardCount: state.images.length,
                   onSwipeBegin: (previousIndex, targetIndex, activity) {
                     if (activity.direction == AxisDirection.up ||
                         activity.direction == AxisDirection.down) {
